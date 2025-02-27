@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -6,6 +6,11 @@ function App() {
   const [lastName, setLastName] = useState("");
   const [fullName, setFullName] = useState("");
   const [error, setError] = useState("");
+
+ 
+  useEffect(() => {
+    console.log("App component mounted!");
+  }, []); // Empty dependency array means it runs only once on mount
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent page reload on form submission
