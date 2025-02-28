@@ -11,7 +11,7 @@ function App() {
   // Logs when the component mounts (Initial render)
   useEffect(() => {
     console.log("App component mounted!");
-  }, []); // Empty dependency array means it runs only once on mount
+  }, []);
 
   // Track updates to states
   useEffect(() => {
@@ -63,7 +63,12 @@ function App() {
         <button type="submit" className="submit-button">Submit</button>
       </form>
       {error && <p className="error-message">{error}</p>}
-      {fullName && <p className="full-name">Full Name: {fullName}</p>}
+
+      {/* Full Name Display */}
+      <p className="full-name">
+        <strong>Full Name Display:</strong>{" "}
+        {fullName ? fullName : "Not entered yet"}
+      </p>
     </div>
   );
 }
