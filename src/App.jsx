@@ -30,24 +30,29 @@ function App() {
           type="text"
           placeholder="First Name"
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          onChange={(e) => {
+            setFirstName(e.target.value);
+            if (error) setError("");
+          }}
           aria-label="First Name"
           className={error ? "input error" : "input"}
-          required
         />
         <input
           type="text"
           placeholder="Last Name"
           value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          onChange={(e) => {
+            setLastName(e.target.value);
+            if (error) setError("");
+          }}
           aria-label="Last Name"
           className={error ? "input error" : "input"}
-          required
         />
-        <button type="submit" className="submit-button">Submit</button>
+        <button type="submit" className="submit-button">
+          Submit
+        </button>
       </form>
       {error && <p className="error-message">{error}</p>}
-      {/* {fullName && <p className="full-name">Full Name: {fullName}</p>} */}
       <p className="full-name">
         <strong>Full Name Display:</strong> {fullName ? fullName : "Not entered yet"}
       </p>
