@@ -4,7 +4,7 @@ import "./App.css";
 function App() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [fullName, setFullName] = useState(null); // Ensure it's null when empty
   const [error, setError] = useState("");
   const isFirstRender = useRef(true);
 
@@ -33,18 +33,18 @@ function App() {
 
     if (!trimmedFirstName || !trimmedLastName) {
       setError("Please fill out both fields.");
-      setFullName(""); // Clear full name display on error
+      setFullName(null); // Prevent rendering full name
       return;
     }
 
     if (!validateInput(trimmedFirstName) || !validateInput(trimmedLastName)) {
       setError("Names should only contain letters (no numbers or special characters).");
-      setFullName(""); // Clear full name display on invalid input
+      setFullName(null); // Prevent rendering full name
       return;
     }
 
     // If all validations pass, update full name and clear error
-    setFullName(`${trimmedFirstName} ${trimmedLastName}`);
+    setFullName(`Full Name: ${trimmedFirstName} ${trimmedLastName}`);
     setError("");
   };
 
@@ -72,12 +72,12 @@ function App() {
         />
         <button type="submit" className="submit-button">Submit</button>
       </form>
+
+      {/* Display Error Message if exists */}
       {error && <p className="error-message">{error}</p>}
 
-      {/* Full Name Display */}
-      <p className="full-name">
-        <strong>Full Name Display:</strong> {fullName ? fullName : "Not entered yet"}
-      </p>
+      {/* Display Full Name only if it's valid */}
+      {fullName && <p className="full-name">{fullName}</p>}
     </div>
   );
 }
