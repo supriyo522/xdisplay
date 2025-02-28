@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 function App() {
@@ -6,11 +6,22 @@ function App() {
   const [lastName, setLastName] = useState("");
   const [fullName, setFullName] = useState("");
   const [error, setError] = useState("");
+  const isFirstRender = useRef(true);
 
- 
+  // Logs when the component mounts (Initial render)
   useEffect(() => {
     console.log("App component mounted!");
   }, []); // Empty dependency array means it runs only once on mount
+
+  // Track updates to states
+  useEffect(() => {
+    if (isFirstRender.current) {
+      console.log("Initial render detected!");
+      isFirstRender.current = false;
+    } else {
+      console.log("Component updated!");
+    }
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent page reload on form submission
