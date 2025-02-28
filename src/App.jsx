@@ -59,7 +59,7 @@ function App() {
           onChange={(e) => setFirstName(e.target.value)}
           aria-label="First Name"
           className={error ? "input error" : "input"}
-          required
+        
         />
         <input
           type="text"
@@ -68,7 +68,6 @@ function App() {
           onChange={(e) => setLastName(e.target.value)}
           aria-label="Last Name"
           className={error ? "input error" : "input"}
-          required
         />
         <button type="submit" className="submit-button">Submit</button>
       </form>
