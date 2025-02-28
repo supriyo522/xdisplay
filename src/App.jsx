@@ -77,7 +77,10 @@ function App() {
       {error && <p className="error-message">{error}</p>}
 
       {/* Display Full Name only if valid */}
-      {fullName && <p className="full-name">{fullName ? fullName : "Not entered yet"}</p>}
+      {/* {fullName && <p className="full-name">{fullName ? fullName : "Not entered yet"}</p>} */}
+      <p className="full-name">
+        <strong>Full Name Display:</strong> {fullName ? fullName : "Not entered yet"}
+      </p>
     </div>
   );
 }
