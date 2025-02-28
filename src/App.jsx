@@ -4,48 +4,38 @@ import "./App.css";
 function App() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [fullName, setFullName] = useState(null);
+  const [fullName, setFullName] = useState("");
   const [error, setError] = useState("");
   const isFirstRender = useRef(true);
 
-  // Log when the component first renders
+  // Logs when the component mounts (Initial render)
   useEffect(() => {
-    console.log(" App component mounted! Initial render detected.");
-  }, []);
+    console.log("App component mounted!");
+  }, []); // Empty dependency array means it runs only once on mount
 
-  // Track updates to component states
+  // Track updates to states
   useEffect(() => {
     if (isFirstRender.current) {
       console.log("Initial render detected!");
       isFirstRender.current = false;
     } else {
-      console.log("Component updated! State changed.");
+      console.log("Component updated!");
     }
   });
 
-  // Allow only letters (no numbers/special characters)
-  const validateInput = (name) => /^[A-Za-z]+$/.test(name);
-
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload on form submission
 
     const trimmedFirstName = firstName.trim();
     const trimmedLastName = lastName.trim();
 
     if (!trimmedFirstName || !trimmedLastName) {
-      setError(" Please fill out both fields.");
-      setFullName("");
-      return;
+      setError("Please fill out both fields.");
+      setFullName(""); // Ensure no name is displayed on error
+    } else {
+      setFullName(`${trimmedFirstName} ${trimmedLastName}`);
+      setError(""); // Clear error when fields are valid
     }
-
-    if (!validateInput(trimmedFirstName) || !validateInput(trimmedLastName)) {
-      setError("Names should only contain letters (no numbers or special characters).");
-      setFullName("");
-      return;
-    }
-
-    setFullName(` Full Name: ${trimmedFirstName} ${trimmedLastName}`);
-    setError(""); // Clear the error message on successful input
   };
 
   return (
@@ -72,12 +62,8 @@ function App() {
         />
         <button type="submit" className="submit-button">Submit</button>
       </form>
-
-      {/* Show error message when invalid */}
       {error && <p className="error-message">{error}</p>}
-
-      {/* Display Full Name only if valid */}
-      {/* {fullName && <p className="full-name">{fullName ? fullName : "Not entered yet"}</p>} */}
+      {/* {fullName && <p className="full-name">Full Name: {fullName}</p>} */}
       <p className="full-name">
         <strong>Full Name Display:</strong> {fullName ? fullName : "Not entered yet"}
       </p>
@@ -86,3 +72,4 @@ function App() {
 }
 
 export default App;
+
