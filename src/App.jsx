@@ -1,96 +1,89 @@
-import { useState, useEffect, useRef } from "react";
-import "./App.css";
+import { useState } from "react";
 
-function App() {
+export default function NameForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [fullName, setFullName] = useState(null);
+  const [fullName, setFullName] = useState("");
   const [error, setError] = useState("");
-  const isFirstRender = useRef(true);
-
-  // Log when the component first renders
-  useEffect(() => {
-    console.log("✅ App component mounted! Initial render detected.");
-  }, []);
-
-  // Track updates to component states
-  useEffect(() => {
-    if (isFirstRender.current) {
-      console.log("Initial render detected!");
-      isFirstRender.current = false;
-    } else {
-      console.log("Component updated! State changed.");
-    }
-  });
-
-  // Allow only letters (no numbers/special characters)
-  const validateInput = (name) => /^[A-Za-z]+$/.test(name);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload on form submission
 
-    const trimmedFirstName = firstName.trim();
-    const trimmedLastName = lastName.trim();
-
-    if (!trimmedFirstName || !trimmedLastName) {
-      setError("❌ Please fill out both fields.");
-      setFullName(null);
-      return;
+    if (!firstName.trim() || !lastName.trim()) {
+      setError("Please fill out both fields");
+      setFullName(""); // Ensure no name is displayed on error
+    } else {
+      setFullName(`${firstName} ${lastName}`);
+      setError(""); // Clear error when fields are valid
     }
-
-    if (!validateInput(trimmedFirstName) || !validateInput(trimmedLastName)) {
-      setError("❌ Names should only contain letters (no numbers or special characters).");
-      setFullName(null);
-      return;
-    }
-
-    setFullName(`✅ Full Name: ${trimmedFirstName} ${trimmedLastName}`);
-    setError(""); // Clear the error message on successful input
-  };
-
-  // Clear error message as soon as the user begins to type new input
-  const handleFirstNameChange = (e) => {
-    setFirstName(e.target.value);
-    if (error) setError("");
-  };
-
-  const handleLastNameChange = (e) => {
-    setLastName(e.target.value);
-    if (error) setError("");
   };
 
   return (
-    <div className="container">
-      <h2>Enter Your Name</h2>
+    <div
+      style={{
+        textAlign: "center",
+        padding: "20px",
+        border: "1px solid #ccc",
+        borderRadius: "8px",
+        width: "300px",
+        margin: "20px auto",
+      }}
+    >
+      <h2 style={{ fontSize: "20px", fontWeight: "bold" }}>Enter Your Name</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="First Name"
           value={firstName}
-          onChange={handleFirstNameChange}
-          aria-label="First Name"
-          className={error ? "input error" : "input"}
+          onChange={(e) => setFirstName(e.target.value)}
+          style={{
+            padding: "8px",
+            margin: "5px",
+            width: "100%",
+            borderRadius: "4px",
+            border: error ? "1px solid red" : "1px solid #ccc",
+          }}
+          required
         />
         <input
           type="text"
           placeholder="Last Name"
           value={lastName}
-          onChange={handleLastNameChange}
-          aria-label="Last Name"
-          className={error ? "input error" : "input"}
+          onChange={(e) => setLastName(e.target.value)}
+          style={{
+            padding: "8px",
+            margin: "5px",
+            width: "100%",
+            borderRadius: "4px",
+            border: error ? "1px solid red" : "1px solid #ccc",
+          }}
+          required
         />
-        <button type="submit" className="submit-button">Submit</button>
+        <button
+          type="submit"
+          style={{
+            backgroundColor: "blue",
+            color: "white",
+            padding: "10px",
+            borderRadius: "4px",
+            cursor: "pointer",
+            border: "none",
+            marginTop: "10px",
+          }}
+        >
+          Submit
+        </button>
       </form>
-
-      {/* Show error message when invalid */}
-      {error && <p className="error-message">{error}</p>}
-
-      {/* Display Full Name only if valid */}
-      <p className="full-name">
-        <strong>Full Name Display:</strong> {fullName ? fullName : "Not entered yet"}
-      </p>
+      {error && (
+        <p style={{ color: "red", fontSize: "14px", marginTop: "10px" }}>
+          {error}
+        </p>
+      )}
+      {fullName && (
+        <p style={{ fontSize: "18px", fontWeight: "bold", marginTop: "10px" }}>
+          Full Name: {fullName}
+        </p>
+      )}
     </div>
   );
 }
-
-export default App;
