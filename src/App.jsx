@@ -47,7 +47,10 @@ function App() {
         <button type="submit" className="submit-button">Submit</button>
       </form>
       {error && <p className="error-message">{error}</p>}
-      {fullName && <p className="full-name">Full Name: {fullName}</p>}
+      {/* {fullName && <p className="full-name">Full Name: {fullName}</p>} */}
+      <p className="full-name">
+        <strong>Full Name Display:</strong> {fullName ? fullName : "Not entered yet"}
+      </p>
     </div>
   );
 }
