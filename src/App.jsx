@@ -34,18 +34,29 @@ function App() {
 
     if (!trimmedFirstName || !trimmedLastName) {
       setError("❌ Please fill out both fields.");
-      setFullName("");
+      setFullName(null);
       return;
     }
 
     if (!validateInput(trimmedFirstName) || !validateInput(trimmedLastName)) {
       setError("❌ Names should only contain letters (no numbers or special characters).");
-      setFullName("");
+      setFullName(null);
       return;
     }
 
     setFullName(`✅ Full Name: ${trimmedFirstName} ${trimmedLastName}`);
     setError(""); // Clear the error message on successful input
+  };
+
+  // Clear error message as soon as the user begins to type new input
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
+    if (error) setError("");
+  };
+
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+    if (error) setError("");
   };
 
   return (
@@ -56,16 +67,15 @@ function App() {
           type="text"
           placeholder="First Name"
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          onChange={handleFirstNameChange}
           aria-label="First Name"
           className={error ? "input error" : "input"}
-        
         />
         <input
           type="text"
           placeholder="Last Name"
           value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          onChange={handleLastNameChange}
           aria-label="Last Name"
           className={error ? "input error" : "input"}
         />
@@ -84,6 +94,3 @@ function App() {
 }
 
 export default App;
-
-
-  
