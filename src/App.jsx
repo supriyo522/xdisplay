@@ -10,7 +10,7 @@ function App() {
 
   // Log when the component first renders
   useEffect(() => {
-    console.log("✅ App component mounted! Initial render detected.");
+    console.log(" App component mounted! Initial render detected.");
   }, []);
 
   // Track updates to component states
@@ -33,18 +33,18 @@ function App() {
     const trimmedLastName = lastName.trim();
 
     if (!trimmedFirstName || !trimmedLastName) {
-      setError("❌ Please fill out both fields.");
-      setFullName(null);
+      setError(" Please fill out both fields.");
+      setFullName("");
       return;
     }
 
     if (!validateInput(trimmedFirstName) || !validateInput(trimmedLastName)) {
-      setError("❌ Names should only contain letters (no numbers or special characters).");
-      setFullName(null);
+      setError("Names should only contain letters (no numbers or special characters).");
+      setFullName("");
       return;
     }
 
-    setFullName(`✅ Full Name: ${trimmedFirstName} ${trimmedLastName}`);
+    setFullName(` Full Name: ${trimmedFirstName} ${trimmedLastName}`);
     setError(""); // Clear the error message on successful input
   };
 
@@ -77,7 +77,9 @@ function App() {
       {error && <p className="error-message">{error}</p>}
 
       {/* Display Full Name only if valid */}
-      {fullName && <p className="full-name">{fullName}</p>}
+      <p className="full-name">
+        <strong>Full Name Display:</strong> {fullName ? fullName : "Not entered yet"}
+      </p>
     </div>
   );
 }
