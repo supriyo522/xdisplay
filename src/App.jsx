@@ -4,48 +4,48 @@ import "./App.css";
 function App() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [fullName, setFullName] = useState(null); // Ensure it's null when empty
+  const [fullName, setFullName] = useState(null);
   const [error, setError] = useState("");
   const isFirstRender = useRef(true);
 
-  // Logs when the component mounts (Initial render)
+  // Log when the component first renders
   useEffect(() => {
-    console.log("App component mounted!");
+    console.log("✅ App component mounted! Initial render detected.");
   }, []);
 
-  // Track updates to states
+  // Track updates to component states
   useEffect(() => {
     if (isFirstRender.current) {
       console.log("Initial render detected!");
       isFirstRender.current = false;
     } else {
-      console.log("Component updated!");
+      console.log("Component updated! State changed.");
     }
   });
 
-  const validateInput = (name) => /^[A-Za-z]+$/.test(name); // Allow only letters
+  // Allow only letters (no numbers/special characters)
+  const validateInput = (name) => /^[A-Za-z]+$/.test(name);
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent page reload on form submission
+    e.preventDefault();
 
     const trimmedFirstName = firstName.trim();
     const trimmedLastName = lastName.trim();
 
     if (!trimmedFirstName || !trimmedLastName) {
-      setError("Please fill out both fields.");
-      setFullName(null); // Prevent rendering full name
+      setError("❌ Please fill out both fields.");
+      setFullName(null);
       return;
     }
 
     if (!validateInput(trimmedFirstName) || !validateInput(trimmedLastName)) {
-      setError("Names should only contain letters (no numbers or special characters).");
-      setFullName(null); // Prevent rendering full name
+      setError("❌ Names should only contain letters (no numbers or special characters).");
+      setFullName(null);
       return;
     }
 
-    // If all validations pass, update full name and clear error
-    setFullName(`Full Name: ${trimmedFirstName} ${trimmedLastName}`);
-    setError("");
+    setFullName(`✅ Full Name: ${trimmedFirstName} ${trimmedLastName}`);
+    setError(""); // Clear the error message on successful input
   };
 
   return (
@@ -73,10 +73,10 @@ function App() {
         <button type="submit" className="submit-button">Submit</button>
       </form>
 
-      {/* Display Error Message if exists */}
+      {/* Show error message when invalid */}
       {error && <p className="error-message">{error}</p>}
 
-      {/* Display Full Name only if it's valid */}
+      {/* Display Full Name only if valid */}
       {fullName && <p className="full-name">{fullName}</p>}
     </div>
   );
