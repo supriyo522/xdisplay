@@ -29,7 +29,7 @@ export default function NameForm() {
         margin: "20px auto",
       }}
     >
-      <h2 style={{ fontSize: "20px", fontWeight: "bold" }}>Enter Your Name</h2>
+      <h2 style={{ fontSize: "20px", fontWeight: "bold" }}>Full Name Display</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -81,7 +81,7 @@ export default function NameForm() {
       )}
       {fullName && (
         <p style={{ fontSize: "18px", fontWeight: "bold", marginTop: "10px" }}>
-        <strong>Full Name Display:</strong>: {fullName}
+          Full Name: {fullName}
         </p>
       )}
     </div>
