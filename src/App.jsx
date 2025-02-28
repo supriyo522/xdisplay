@@ -81,7 +81,7 @@ export default function NameForm() {
       )}
       {fullName && (
         <p style={{ fontSize: "18px", fontWeight: "bold", marginTop: "10px" }}>
-        Full Name Display: {fullName ? fullName : "Not entered yet"}
+        <strong>Full Name Display:</strong>: {fullName}
         </p>
       )}
     </div>
