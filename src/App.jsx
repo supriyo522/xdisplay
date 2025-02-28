@@ -34,13 +34,13 @@ function App() {
 
     if (!trimmedFirstName || !trimmedLastName) {
       setError("❌ Please fill out both fields.");
-      setFullName(null);
+      setFullName("");
       return;
     }
 
     if (!validateInput(trimmedFirstName) || !validateInput(trimmedLastName)) {
       setError("❌ Names should only contain letters (no numbers or special characters).");
-      setFullName(null);
+      setFullName("");
       return;
     }
 
