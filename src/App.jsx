@@ -23,6 +23,8 @@ function App() {
     }
   });
 
+  const validateInput = (name) => /^[A-Za-z]+$/.test(name); // Allow only letters
+
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent page reload on form submission
 
@@ -31,11 +33,19 @@ function App() {
 
     if (!trimmedFirstName || !trimmedLastName) {
       setError("Please fill out both fields.");
-      setFullName(""); // Ensure no name is displayed on error
-    } else {
-      setFullName(`${trimmedFirstName} ${trimmedLastName}`);
-      setError(""); // Clear error when fields are valid
+      setFullName(""); // Clear full name display on error
+      return;
     }
+
+    if (!validateInput(trimmedFirstName) || !validateInput(trimmedLastName)) {
+      setError("Names should only contain letters (no numbers or special characters).");
+      setFullName(""); // Clear full name display on invalid input
+      return;
+    }
+
+    // If all validations pass, update full name and clear error
+    setFullName(`${trimmedFirstName} ${trimmedLastName}`);
+    setError("");
   };
 
   return (
@@ -66,8 +76,7 @@ function App() {
 
       {/* Full Name Display */}
       <p className="full-name">
-        <strong>Full Name Display:</strong>{" "}
-        {fullName ? fullName : "Not entered yet"}
+        <strong>Full Name Display:</strong> {fullName ? fullName : "Not entered yet"}
       </p>
     </div>
   );
